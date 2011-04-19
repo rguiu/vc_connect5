@@ -1,0 +1,10 @@
+Connect 5 server
+
+We are planning to build bots at the office to play connect 5. This is just the judge server.
+
+
+Commands
+
+- nick your bot name
+
+- move x y
