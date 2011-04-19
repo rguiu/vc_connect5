@@ -38,20 +38,7 @@ Game.prototype.move = function(player, x, y) {
     sys.log(player.name+" moved "+x+","+y);
     this.turn = (player.colour==1?2:1);
     
-    // @todo log
-    for(i=0;i<BOARD_SIZE;i++) {
-      row = ""
-      for(j=0;j<BOARD_SIZE;j++) {
-        if (this.squares[i][j]==null) {
-          row += ".";
-        } else if(this.squares[i][j]==1) {
-          row += "o";
-        } else {
-          row += "x";
-        }
-      }
-      console.log(row);
-    }
+    this.paint();
 
     if (this.isOver(player.colour)) {
       player.message("You WON");
@@ -71,6 +58,23 @@ Game.prototype.move = function(player, x, y) {
       return "OK";
     }
   }
+};
+
+Game.prototype.paint = function() {
+    // @todo log
+    for(i=0;i<BOARD_SIZE;i++) {
+      row = "";
+      for(j=0;j<BOARD_SIZE;j++) {
+        if (this.squares[i][j] == null) {
+          row += ".";
+        } else if(this.squares[i][j]==1) {
+          row += "o";
+        } else {
+          row += "x";
+        }
+      }
+      console.log(row);
+    }
 };
 
 Game.prototype.getPlayerToMove = function() {
@@ -105,6 +109,15 @@ Game.prototype.isOver = function(index) {
               this.squares[i+2][j+2]==index && 
               this.squares[i+3][j+3]==index &&
               this.squares[i+4][j+4]==index) {
+            return true;
+          }
+        }
+         // diagonal
+        if(i >= 4 && j < BOARD_SIZE - 5) {
+          if (this.squares[i-1][j+1]==index && 
+              this.squares[i-2][j+2]==index && 
+              this.squares[i-3][j+3]==index &&
+              this.squares[i-4][j+4]==index) {
             return true;
           }
         }
