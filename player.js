@@ -25,7 +25,7 @@ Player.prototype.startGame = function(colour, game) {
 };
 
 Player.prototype.opponentMove = function(x,y) {
-  this.socket.write("opponent: "+x+","+y+"\t\n");
+  this.socket.write("opponent: "+x+" "+y+"\t\n");
 };
 
 Player.prototype.yourTurn = function() {
