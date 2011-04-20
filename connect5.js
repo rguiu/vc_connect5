@@ -22,7 +22,7 @@ net.createServer(function (socket) {
 //  if (players.length == 2) {
 //    game = new Game({ white: players[0], black: players[1]});
 //  }
-}).listen(8123, "127.0.0.1");
+}).listen(8123, "172.23.3.136");
 console.log('Socket Server running at 127.0.0.1:8123');
 
 // Util stuff

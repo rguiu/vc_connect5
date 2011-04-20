@@ -86,7 +86,7 @@ Game.prototype.isOver = function(index) {
     for(var j = 0;j<BOARD_SIZE;j++) {
       if (this.squares[i][j]==index) {
         // horizontal
-        if(j < BOARD_SIZE-5) {
+        if(j < BOARD_SIZE-4) {
           if (this.squares[i][j+1]==index && 
               this.squares[i][j+2]==index && 
               this.squares[i][j+3]==index &&
@@ -95,7 +95,7 @@ Game.prototype.isOver = function(index) {
           }
         }
         // vertical
-        if(i < BOARD_SIZE-5) {
+        if(i < BOARD_SIZE-4) {
           if (this.squares[i+1][j]==index && 
               this.squares[i+2][j]==index && 
               this.squares[i+3][j]==index &&
@@ -104,7 +104,7 @@ Game.prototype.isOver = function(index) {
           }
         }
         // diagonal
-        if(i < BOARD_SIZE - 5 && j < BOARD_SIZE - 5) {
+        if(i < BOARD_SIZE - 4 && j < BOARD_SIZE - 4) {
           if (this.squares[i+1][j+1]==index && 
               this.squares[i+2][j+2]==index && 
               this.squares[i+3][j+3]==index &&
@@ -113,7 +113,7 @@ Game.prototype.isOver = function(index) {
           }
         }
          // diagonal
-        if(i >= 4 && j < BOARD_SIZE - 5) {
+        if(i >= 4 && j < BOARD_SIZE - 4) {
           if (this.squares[i-1][j+1]==index && 
               this.squares[i-2][j+2]==index && 
               this.squares[i-3][j+3]==index &&

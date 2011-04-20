@@ -1,13 +1,24 @@
 require 'socket'
 
-HOST = 'localhost'
+#HOST = 'localhost'
 PORT = 8123
-NICK = "Super bot 1"
-
-s = TCPSocket.open(HOST, PORT)
+#NICK = nil
 
 SIZE = 15
 @squares = Array.new(SIZE) {Array.new(SIZE) {0}}
+
+NICK = ARGV[0] unless ARGV.size == 0 
+HOST = ARGV[1] if ARGV.size > 1
+
+HOST ||= 'localhost'
+
+if NICK.nil?
+  puts "usage ruby_client.rb bot_name ip"
+  exit
+end
+puts "connecting to #{HOST} as #{NICK}"
+
+s = TCPSocket.open(HOST, PORT)
 
 def pick_move
   x = -1
@@ -17,7 +28,7 @@ def pick_move
     for j in (0..14)
       if @squares[i][j] == 0
         t_sc = longest_chain(i,j,1)
-        if t_sc > sc || (t_sc == sc && rand(20)==1) 
+        if t_sc > sc || (t_sc == sc && (sc==1 ? rand(40)==1:rand(3)==1)) 
           x = i
           y = j
           sc = t_sc
@@ -63,11 +74,17 @@ while line = s.gets
     puts "I will move #{co[0]} #{co[1]}"
     @squares[co[0]][co[1]] = 1
     s.puts("move #{co[0]} #{co[1]}")
-  elsif line.match(/^opponnent/)
+  elsif line.match(/^opponent/)
     # record move
     a = line.chomp.split
     puts "Opponent - moved: #{a[1]},#{a[2]}"
     @squares[a[1].to_i][a[2].to_i] = 2;
+  elsif line.match(/You WON/)
+    puts "SWEET VICTORY...YUHUUUU"
+    exit
+  elsif line.match(/You LOST/)
+    puts "CHEAAAAAAT This game is crap"
+    exit
   else
     puts "I didnt understood: #{line.chomp}"
   end
