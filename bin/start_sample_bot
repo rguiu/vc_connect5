@@ -1,0 +1,25 @@
+#!/usr/bin/ruby -Ilib/client
+
+require File.expand_path(File.dirname(__FILE__) + '/../lib/client/bots/sample_bot')
+
+DEFAULT_HOST = 'localhost'
+DEFAULT_PORT = 8123
+
+NICK = ARGV[0] if ARGV.size > 0
+HOST = ARGV[1] || 'localhost'
+
+def get_opts(argv)
+  nick, host, port = argv
+  host ||= DEFAULT_HOST
+  port ||= DEFAULT_PORT
+  
+  if nick.nil?
+    puts "usage: #{$0} bot_name [ip]"
+    exit
+  end
+
+  [nick, host, port]
+end
+
+nick, host, port = get_opts(ARGV) # need to be ruby 1.8 compatible (no new(*get_opts(...)))
+VcConnect5::SampleBot.new(nick, host, port).play
