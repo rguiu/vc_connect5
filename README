@@ -19,6 +19,6 @@ Client bots can issue following Commands:
 - move x y
 
 Start the sample client with:
-$ ./bin/start_sample_bot <nick> [ip] [port]
+$ ./bin/start_sample_bot <nick> [ip [port]]
 
 ip is localhost by default

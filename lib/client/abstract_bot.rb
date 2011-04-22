@@ -11,7 +11,6 @@ module VcConnect5
       @log_output = log
 
       log "connecting to #{host}:#{port} as #{nick}"
-#      @server = TCPSocket.open(host, port)
       @server = TCPSocket.open(host, port)
 
       @board = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE, 0) }
@@ -22,28 +21,27 @@ module VcConnect5
         if line.chomp == "You will need to set your nick ('nick nick_name')"
           submit_command "nick #{nick}"
         elsif line.match(/^Your turn/)
-          # do move
-          log "Let me think..."
+          before_move
+
           x, y = pick_move
-
-          puts "I will move #{x} #{y}"
           board[x][y] = MY_COLOR
-
           submit_command "move #{x} #{y}"
+
+          after_bots_move(x, y)
+
         elsif line.match(/^opponent/)
-          # record move
           opponent, x, y = line.chomp.split.map(&:to_i)
-          log "Opponent - moved: #{x},#{y}"
-          
-          board[x][y] = OPPONENT_COLOR;
+          board[x][y] = OPPONENT_COLOR
+
+          after_opponents_move(x, y)
         elsif line.match(/You WON/)
-          log "SWEET VICTORY...YUHUUUU"
+          after_victory
           return 0
         elsif line.match(/You LOST/)
-          log "CHEAAAAAAT This game is crap"
+          after_defeat
           return 0
         else
-          log "I didnt understood: #{line.chomp}"
+          after_unknown_response(line)
         end
       end
     end
@@ -52,16 +50,40 @@ module VcConnect5
 
     attr_reader :nick, :server, :log_output, :board
 
+    def pick_move
+      raise "Implement this method in your bot subclass"
+    end
+
     def submit_command(command)
       server.puts(command)
     end
 
-    def log(text)
-      log_output.puts(text)
+    def before_move
+      log "Let me think..."
     end
 
-    def pick_move
-      raise "Implement this method in your bot subclass"
+    def after_bots_move(x, y)
+      log "My move: #{x} #{y}"
+    end
+
+    def after_opponents_move(x, y)
+      log "Opponent's move: #{x},#{y}"
+    end
+
+    def after_victory
+      log "SWEET VICTORY...YUHUUUU"
+    end
+
+    def after_defeat
+      log "CHEAAAAAAT This game is crap"
+    end
+
+    def after_unknown_response(line)
+      log "I don't understand: #{line.chomp}"
+    end
+
+    def log(text)
+      log_output.puts(text)
     end
   end
 end

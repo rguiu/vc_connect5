@@ -14,7 +14,7 @@ def get_opts(argv)
   port ||= DEFAULT_PORT
   
   if nick.nil?
-    puts "usage: #{$0} bot_name [ip]"
+    puts "usage: #{$0} bot_name [ip [port]]"
     exit
   end
 
