@@ -1,10 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../abstract_bot')
-
 module VcConnect5
   class SampleBot < AbstractBot
     MODS = [[0, 1], [1, 0], [1, 1], [-1, 1]]
-
-    protected
 
     def pick_move
       x  = -1
@@ -24,6 +20,8 @@ module VcConnect5
       end
       [x, y]
     end
+
+    protected
 
     def longest_chain(x, y, c)
       max_l = 0

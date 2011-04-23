@@ -3,6 +3,7 @@ require 'socket'
 module VcConnect5
   class AbstractBot
     BOARD_SIZE     = 15
+    NO_COLOR       = 0
     MY_COLOR       = 1
     OPPONENT_COLOR = 2
 
@@ -13,7 +14,7 @@ module VcConnect5
       log "connecting to #{host}:#{port} as #{nick}"
       @server = TCPSocket.open(host, port)
 
-      @board = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE, 0) }
+      @board = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE, NO_COLOR) }
     end
 
     def play
@@ -46,13 +47,13 @@ module VcConnect5
       end
     end
 
-    protected
-
-    attr_reader :nick, :server, :log_output, :board
-
     def pick_move
       raise "Implement this method in your bot subclass"
     end
+
+    protected
+
+    attr_reader :nick, :server, :log_output, :board
 
     def submit_command(command)
       server.puts(command)
