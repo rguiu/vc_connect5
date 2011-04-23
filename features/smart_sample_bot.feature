@@ -1,10 +1,11 @@
-Feature: bot makes smart moves
+Feature: sample bot makes smart moves
   As a bot
   I want to make smart moves
   in order to win with other bots
 
   Background: playing "X"
-    Given I am connected to a game
+    Given I am "SampleBot"
+      And I am connected to a game
       And I play "x"
 
 

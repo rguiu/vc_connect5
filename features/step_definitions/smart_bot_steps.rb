@@ -17,11 +17,15 @@ def expected_moves(moves_spec)
   moves_spec.raw.first.map { |m| m.split(',').map(&:to_i) }
 end
 
+Given /^I am "([^"]*)"$/ do |klass|
+  @bot_klass = eval("VcConnect5::#{klass}")
+end
+
 # Not supposed to stub in acceptance tests? Who said that?
 Given /^I am connected to a game$/ do
   TCPSocket.stub!(:open)
   output = stub("Output", :puts => true)
-  @bot = VcConnect5::SampleBot.new("sample_bot", "localhost", 0, output)
+  @bot = @bot_klass.new("sample_bot", "localhost", 0, output)
 end
 
 Given /^I play "([^"]*)"$/ do |color|
