@@ -11,20 +11,21 @@ Feature: random bot makes moves
 
   Scenario: finish him
     When the board is:
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooox|
-        |oxxxxooooxoooo.|
+        |.|012345678901234|
+        |0|oxxxxooooxoooox|
+        |1|oxxxxooooxoooox|
+        |2|oxxxxooooxoooox|
+        |3|oxxxxooooxoooox|
+        |4|oxxxxooooxoooox|
+        |5|oxxxxooooxoooox|
+        |6|oxxxxooooxoooox|
+        |7|oxxxxooooxoooox|
+        |8|oxxxxooooxoooox|
+        |9|oxxxxooooxoooox|
+        |0|oxxxxooooxoooox|
+        |1|oxxxxooooxoooox|
+        |2|oxxxxooooxoooox|
+        |3|oxxxxooooxoooox|
+        |4|oxxxxooooxoooo.|
     Then my move should be one of:
         | 14,14 |

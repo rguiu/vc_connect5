@@ -8,8 +8,9 @@ def mark(sign)
 end
 
 def internal_board(spec)
+  spec.shift # remove header
   spec.map do |row|
-    row.first.split(//).map { |s| mark(s) }
+    row.last.split(//).map { |s| mark(s) }
   end
 end
 
